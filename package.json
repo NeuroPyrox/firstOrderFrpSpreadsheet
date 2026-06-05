@@ -2,9 +2,9 @@
   "name": "first-order-frp-spreadsheet",
   "version": "1.0.0",
   "description": "FRP Spreadsheet project running on Node.js",
-  "main": "api/index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node server.js"
   },
   "dependencies": {}
 }
