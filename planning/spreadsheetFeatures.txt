@@ -11,4 +11,5 @@ Buttons
 Events
 History
 First-order frp spreadsheet
+Dependent types
 Chores app

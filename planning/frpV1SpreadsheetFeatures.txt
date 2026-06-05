@@ -1,0 +1,10 @@
+Editable textbox
+Editable integer selector
+Editable dynamic list
+Add data
+Delete data
+Move data
+Button
+Tag
+Accumulate
+Convert accumulation functions to a dsl
