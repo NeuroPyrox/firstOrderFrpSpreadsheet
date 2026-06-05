@@ -1,0 +1,30 @@
+# A list of (name, points) pairs
+Initial points
+
+# Fires every night at midnight
+Day ends
+Date <- day ends
+
+# A stream of pairs of (description, list of pairs of (name, points change)). The lists group related changes together.
+Points changes <- chores done, manual points changes
+View current points <- points changes, initial points
+
+View chores table
+	View frequency column
+	View chore column
+	# States: done today, available, unavailable
+	View status column
+		Last done <- chore column, chores done, date
+		Days since last done <- Last done, date
+		# If the days since last done are at least the frequency, it's available. Show how many days it's been available. Else if the days since last done are zero, it's done today. Else, it's unavailable and show the days until it's available.
+		View status <- Days since last done, frequency column
+
+# Lets you check off chores as done by different people, but only if the chore is available
+View chores done <- chore column, status column
+
+View manual points changes
+	View description textbox
+	# List of pairs of (name, points change)
+	View editable list
+	# Has a confirm popup
+	View submit button

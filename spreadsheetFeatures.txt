@@ -1,0 +1,14 @@
+Show a scalar value
+Edit a scalar value
+Finish editing a scalar value
+Add scalar values
+Remove scalar values
+Move scalar values
+Composite values
+Names
+Behaviors
+Buttons
+Events
+History
+First-order frp spreadsheet
+Chores app

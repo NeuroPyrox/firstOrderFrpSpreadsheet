@@ -1,0 +1,13 @@
+# A list of (name, points) pairs
+Initial points
+
+# A stream of pairs of (description, list of pairs of (name, points change)). The lists group related changes together.
+Points changes <- manual points changes
+View current points <- points changes, initial points
+
+View manual points changes
+	View description textbox
+	# List of pairs of (name, points change)
+	View editable list
+	# Has a confirm popup
+	View submit button
