@@ -38,29 +38,58 @@
       listContainer.appendChild(item);
     }
 
+    const createGeneratorMonad = () => {
+      const key = Symbol();
+      const runMonad = (context, generator) => {
+        let step = generator.next();
+        while (!step.done) {
+          step = generator.next(step.value[key](context));
+        }
+        return step.value;
+      };
+      const monadicMethod =
+        (field) =>
+        (...args) => ({
+          [key]: (context) => context[field](...args),
+        });
+      return [runMonad, monadicMethod];
+    };
+    
+    const [runHtmlMonadWithContext, monadicMethod] = createGeneratorMonad();
+    const createElement = monadicMethod("createElement");
+    const text = monadicMethod("text");
+
+    class Context {
+      constructor() {
+        this.elements = [];
+      }
+
+      createElement(type) {
+        const element = document.createElement(type);
+        this.elements.push(element);
+        return element;
+      }
+
+      text(string) {
+        this.elements.push(string);
+      }
+    }
+
     function* h1() {
-      yield context => ({
-        context: context + "h1 ",
-        value: null
-      })
+      return yield createElement("h1");
     }
 
     function* button() {
-      return yield context => ({
-        context: context + "button ",
-        value: {
-          onClick: () => ({
-            map: () => {},
-          })
-        }
-      });
+      yield createElement("button");
+      return {
+        onClick: () => ({
+          map: () => {}
+        })
+      };
     }
     
     function* div() {
-      yield context => ({
-        context: context + "div ",
-        value: null
-      })
+      return yield createElement("div");
     }
     
     // TODO convert this file into FRP using the following code
@@ -71,25 +100,11 @@
         yield* input({type: "text", placeholder: "Type something..."});
       })
       yield* div({appendChild: newTextboxes});
-      return 5;
     }
 
-    const runMainMonad = () => {
-      let context = "string ";
-      const generator = main();
-      let step = generator.next();
-      while (!step.done) {
-        const response = step.value(context);
-        context = response.context;
-        step = generator.next(response.value);
-      }
-      if (step.value !== 5) {
-        throw "Unexpected return value";
-      }
-      console.log(context);
-    }
-
-    runMainMonad();
+    const context = new Context();
+    runHtmlMonadWithContext(context, main());
+    document.body.append(...context.elements);
   </script>
 </body>
 </html>
