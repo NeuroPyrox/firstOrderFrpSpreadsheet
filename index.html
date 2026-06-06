@@ -47,6 +47,18 @@
       })
       yield* div({appendChild: newTextboxes});
     }
+
+    const runMainMonad = () => {
+      let context = undefined;
+      const generator = main();
+      let step = generator.next();
+      while (!step.done) {
+        const response = step.value(context);
+        context = response.context;
+        step = generator.next(response.value);
+      }
+      // TODO process step.value
+    }
   </script>
 </body>
 </html>
