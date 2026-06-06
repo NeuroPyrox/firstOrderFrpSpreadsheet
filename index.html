@@ -74,19 +74,15 @@
       return 5;
     }
 
-    console.log(1);
     const runMainMonad = () => {
-      console.log(2);
       let context = "string ";
       const generator = main();
       let step = generator.next();
       while (!step.done) {
-        console.log(3);
         const response = step.value(context);
         context = response.context;
         step = generator.next(response.value);
       }
-      console.log(4);
       if (step.value !== 5) {
         throw "Unexpected return value";
       }
