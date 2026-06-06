@@ -46,14 +46,14 @@
     }
 
     function* button() {
-      yield context => ({
+      return yield context => ({
         context: context + "button ",
         value: {
           onClick: () => ({
             map: () => {},
           })
         }
-      })
+      });
     }
     
     function* div() {
