@@ -37,6 +37,16 @@
       
       listContainer.appendChild(item);
     }
+
+    // TODO convert this file into FRP using the following code
+    function* main() {
+      yield* h1("My Textboxes");
+      myButton = yield* button("Add Box");
+      newTextboxes = myButton.onClick().map(() => function* () {
+        yield* input({type: "text", placeholder: "Type something..."});
+      })
+      yield* div({appendChild: newTextboxes});
+    }
   </script>
 </body>
 </html>
