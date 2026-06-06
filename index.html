@@ -38,6 +38,31 @@
       listContainer.appendChild(item);
     }
 
+    function* h1() {
+      yield context => ({
+        context: context + "h1 ",
+        value: null
+      })
+    }
+
+    function* button() {
+      yield context => ({
+        context: context + "button ",
+        value: {
+          onClick: () => ({
+            map: () => {},
+          })
+        }
+      })
+    }
+    
+    function* div() {
+      yield context => ({
+        context: context + "div ",
+        value: null
+      })
+    }
+    
     // TODO convert this file into FRP using the following code
     function* main() {
       yield* h1("My Textboxes");
@@ -46,10 +71,11 @@
         yield* input({type: "text", placeholder: "Type something..."});
       })
       yield* div({appendChild: newTextboxes});
+      return 5;
     }
 
     const runMainMonad = () => {
-      let context = undefined;
+      let context = "string ";
       const generator = main();
       let step = generator.next();
       while (!step.done) {
@@ -57,8 +83,13 @@
         context = response.context;
         step = generator.next(response.value);
       }
-      // TODO process step.value
+      if (step.value !== 5) {
+        throw "Unexpected return value";
+      }
+      console.log(context);
     }
+
+    runMainMonad();
   </script>
 </body>
 </html>
